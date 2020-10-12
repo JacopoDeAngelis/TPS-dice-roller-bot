@@ -15,3 +15,8 @@ def parse_text_regex(text, regex):
         raise e
     match = compiled_regex.match(text)
     return match.groups()
+
+
+def clean_string_with_regex(text, regex):
+    cleaned_string = re.sub(regex, '', text)
+    return cleaned_string
