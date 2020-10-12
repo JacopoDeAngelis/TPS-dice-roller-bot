@@ -1,8 +1,9 @@
 from random import randint
 from iteration_utilities import flatten
 from .constants import DICE_ROLL_REGEX
+from .constants import ROLL_CLEANER_REGEX
 
-from .parse import parse_text_regex
+from .parse import *
 
 
 ### roll_message(message, single_result_mode)
@@ -10,8 +11,7 @@ from .parse import parse_text_regex
 
 def roll_message(message, single_result_mode=False):
     try:
-        message = message.replace('/roll', '')
-        message = message.replace('/r', '')
+        message = clean_string_with_regex(message, ROLL_CLEANER_REGEX)
         parsed_groups = parse_text_regex(message, DICE_ROLL_REGEX)
         number, dice, mod, comment = normalize_values(list(parsed_groups))
         result, result_list = roll(number, dice, mod)
